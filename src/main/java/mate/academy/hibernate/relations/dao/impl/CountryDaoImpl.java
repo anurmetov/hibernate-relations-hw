@@ -7,16 +7,16 @@ import org.hibernate.SessionFactory;
 
 public class CountryDaoImpl extends AbstractDao implements CountryDao {
     public CountryDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+        super(sessionFactory, CountryDao.class);
     }
 
     @Override
     public Country add(Country country) {
-        return null;
+        return add(country);
     }
 
     @Override
     public Optional<Country> get(Long id) {
-        return null;
+        return get(id);
     }
 }

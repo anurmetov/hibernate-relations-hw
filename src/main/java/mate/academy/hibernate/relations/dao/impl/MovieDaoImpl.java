@@ -7,16 +7,16 @@ import org.hibernate.SessionFactory;
 
 public class MovieDaoImpl extends AbstractDao implements MovieDao {
     public MovieDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+        super(sessionFactory,  MovieDao.class);
     }
 
     @Override
     public Movie add(Movie movie) {
-        return null;
+        return add(movie);
     }
 
     @Override
     public Optional<Movie> get(Long id) {
-        return null;
+        return get(id);
     }
 }
