@@ -19,7 +19,7 @@ public class Movie implements Cloneable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "actor_title")
+    @Column(name = "movie_title")
     private String title;
 
     @ManyToMany
