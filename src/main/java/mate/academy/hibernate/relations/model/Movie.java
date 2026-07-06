@@ -1,11 +1,26 @@
 package mate.academy.hibernate.relations.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "movie")
 public class Movie implements Cloneable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "actor_title")
     private String title;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actor", // Назва таблиці з'єднання
+            joinColumns = @JoinColumn(name = "movie_id"), // Стовпець, що вказує на первинний ключ Book
+            inverseJoinColumns = @JoinColumn(name = "actor_id") // Стовпець, що вказує на первинний ключ Author
+    )
     private List<Actor> actors;
 
     public Movie() {
