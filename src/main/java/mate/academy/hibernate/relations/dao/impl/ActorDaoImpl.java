@@ -6,18 +6,19 @@ import mate.academy.hibernate.relations.exception.DataProcessingException;
 import mate.academy.hibernate.relations.model.Actor;
 import org.hibernate.SessionFactory;
 
-public class ActorDaoImpl extends AbstractDao implements ActorDao {
+public class ActorDaoImpl extends AbstractDao<Actor> implements ActorDao {
     public ActorDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory, ActorDao.class);
+        super(sessionFactory, Actor.class);
     }
 
     @Override
     public Actor add(Actor actor) {
-        return add(actor);
+        return super.add(actor);
     }
 
     @Override
     public Optional<Actor> get(Long id) {
-        return Optional.of(get(id)).orElseThrow(() -> new DataProcessingException("Cant get author from DB. ID: " + id));
+        return Optional.of(super.get(id)).orElseThrow(()
+                -> new DataProcessingException("Cant get author from DB. ID: " + id));
     }
 }

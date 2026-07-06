@@ -1,15 +1,13 @@
 package mate.academy.hibernate.relations.dao.impl;
 
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.Optional;
-
 public abstract class AbstractDao<T> {
     protected final SessionFactory factory;
     private final Class<T> entityClass;
-
 
     protected AbstractDao(SessionFactory sessionFactory, Class<T> entityClass) {
         this.factory = sessionFactory;

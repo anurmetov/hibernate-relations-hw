@@ -6,18 +6,19 @@ import mate.academy.hibernate.relations.exception.DataProcessingException;
 import mate.academy.hibernate.relations.model.Country;
 import org.hibernate.SessionFactory;
 
-public class CountryDaoImpl extends AbstractDao implements CountryDao {
+public class CountryDaoImpl extends AbstractDao<Country> implements CountryDao {
     public CountryDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory, CountryDao.class);
+        super(sessionFactory, Country.class);
     }
 
     @Override
     public Country add(Country country) {
-        return add(country);
+        return super.add(country);
     }
 
     @Override
     public Optional<Country> get(Long id) {
-        return Optional.of(get(id)).orElseThrow(() -> new DataProcessingException("Cant get country from DB. ID: " + id));
+        return Optional.of(super.get(id)).orElseThrow(()
+                -> new DataProcessingException("Cant get country from DB. ID: " + id));
     }
 }

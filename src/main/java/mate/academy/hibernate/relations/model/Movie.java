@@ -1,7 +1,14 @@
 package mate.academy.hibernate.relations.model;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +24,9 @@ public class Movie implements Cloneable {
 
     @ManyToMany
     @JoinTable(
-            name = "movie_actor", // Назва таблиці з'єднання
-            joinColumns = @JoinColumn(name = "movie_id"), // Стовпець, що вказує на первинний ключ Book
-            inverseJoinColumns = @JoinColumn(name = "actor_id") // Стовпець, що вказує на первинний ключ Author
+            name = "movie_actor",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
     private List<Actor> actors;
 
