@@ -18,7 +18,6 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
 
     @Override
     public Optional<Movie> get(Long id) {
-        return Optional.of(super.get(id)).orElseThrow(()
-                -> new DataProcessingException("Cant get movie from DB. ID: " + id));
+        return super.get(id);
     }
 }

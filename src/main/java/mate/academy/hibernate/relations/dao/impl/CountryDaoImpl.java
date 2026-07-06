@@ -18,7 +18,6 @@ public class CountryDaoImpl extends AbstractDao<Country> implements CountryDao {
 
     @Override
     public Optional<Country> get(Long id) {
-        return Optional.of(super.get(id)).orElseThrow(()
-                -> new DataProcessingException("Cant get country from DB. ID: " + id));
+        return super.get(id);
     }
 }

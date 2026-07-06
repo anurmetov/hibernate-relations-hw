@@ -18,7 +18,6 @@ public class ActorDaoImpl extends AbstractDao<Actor> implements ActorDao {
 
     @Override
     public Optional<Actor> get(Long id) {
-        return Optional.of(super.get(id)).orElseThrow(()
-                -> new DataProcessingException("Cant get author from DB. ID: " + id));
+        return super.get(id);
     }
 }

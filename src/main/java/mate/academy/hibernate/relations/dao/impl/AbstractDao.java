@@ -1,6 +1,7 @@
 package mate.academy.hibernate.relations.dao.impl;
 
 import java.util.Optional;
+import mate.academy.hibernate.relations.exception.DataProcessingException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,10 +17,8 @@ public abstract class AbstractDao<T> {
     }
 
     public T add(T entity) {
-        Session session = null;
         Transaction tx = null;
-        try {
-            session = factory.openSession();
+        try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
             session.persist(entity);
             tx.commit();
@@ -29,21 +28,15 @@ public abstract class AbstractDao<T> {
 
             if (tx != null) {
                 tx.rollback();
-            }
-
-        } finally {
-            if (session != null) {
-                session.close();
+                throw new DataProcessingException(ex.getMessage());
             }
         }
         return entity;
     }
 
     public Optional<T> get(Long id) {
-        Session session = null;
         Transaction tx = null;
-        try {
-            session = factory.openSession();
+        try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
             T result = session.find(entityClass, id);
             tx.commit();
@@ -54,13 +47,11 @@ public abstract class AbstractDao<T> {
 
             if (tx != null) {
                 tx.rollback();
+                throw new DataProcessingException(ex.getMessage());
+
             }
             return Optional.empty();
 
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 }
