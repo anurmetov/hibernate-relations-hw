@@ -22,16 +22,17 @@ public abstract class AbstractDao<T> {
             tx = session.beginTransaction();
             session.persist(entity);
             tx.commit();
+            return entity;
 
         } catch (Exception ex) {
             ex.printStackTrace();
 
             if (tx != null) {
                 tx.rollback();
-                throw new DataProcessingException(ex.getMessage());
             }
+            throw new DataProcessingException(
+                    "The object could not be loaded from a DB. ", ex);
         }
-        return entity;
     }
 
     public Optional<T> get(Long id) {
@@ -47,11 +48,9 @@ public abstract class AbstractDao<T> {
 
             if (tx != null) {
                 tx.rollback();
-                throw new DataProcessingException(ex.getMessage());
-
             }
-            return Optional.empty();
-
+            throw new DataProcessingException(
+                    "The object could not be loaded from a DB. ", ex);
         }
     }
 }
