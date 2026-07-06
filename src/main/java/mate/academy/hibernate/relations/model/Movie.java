@@ -48,11 +48,7 @@ public class Movie implements Cloneable {
     public String getTitle() {
         return title;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    
     public List<Actor> getActors() {
         return actors;
     }

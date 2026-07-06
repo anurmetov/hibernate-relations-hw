@@ -18,41 +18,37 @@ public abstract class AbstractDao<T> {
 
     public T add(T entity) {
         Transaction tx = null;
-        try (Session session = factory.openSession()) {
+        Session session = null;
+        try {
+            session = factory.openSession();
             tx = session.beginTransaction();
             session.persist(entity);
             tx.commit();
             return entity;
 
         } catch (Exception ex) {
-            ex.printStackTrace();
 
             if (tx != null) {
                 tx.rollback();
             }
             throw new DataProcessingException(
-                    "The object could not be loaded from a DB. ", ex);
+                    "The " + entityClass.getSimpleName() + " could not be added to DB. ", ex);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     public Optional<T> get(Long id) {
-        Transaction tx = null;
         try (Session session = factory.openSession()) {
-            tx = session.beginTransaction();
-            T result = session.find(entityClass, id);
-            tx.commit();
-            return Optional.ofNullable(result);
-
+            return Optional.ofNullable(session.find(entityClass, id));
         } catch (Exception ex) {
-            ex.printStackTrace();
-
-            if (tx != null) {
-                tx.rollback();
-            }
-            throw new DataProcessingException(
-                    "The object could not be loaded from a DB. ", ex);
+            throw new DataProcessingException("Can't get "
+                    + entityClass.getSimpleName() + " from DB", ex);
         }
     }
+
 }
 
 

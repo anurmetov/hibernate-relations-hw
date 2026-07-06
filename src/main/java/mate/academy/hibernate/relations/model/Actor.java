@@ -39,10 +39,6 @@ public class Actor implements Cloneable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Country getCountry() {
         return country;
     }
