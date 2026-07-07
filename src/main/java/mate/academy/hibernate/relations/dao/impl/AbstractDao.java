@@ -8,12 +8,9 @@ import org.hibernate.Transaction;
 
 public abstract class AbstractDao<T> {
     protected final SessionFactory factory;
-    private final Class<T> entityClass;
 
-    protected AbstractDao(SessionFactory sessionFactory, Class<T> entityClass) {
+    protected AbstractDao(SessionFactory sessionFactory) {
         this.factory = sessionFactory;
-        this.entityClass = entityClass;
-
     }
 
     public T add(T entity) {
@@ -32,7 +29,7 @@ public abstract class AbstractDao<T> {
                 tx.rollback();
             }
             throw new DataProcessingException(
-                    "The " + entityClass.getSimpleName() + " could not be added to DB. ", ex);
+                    "The " + getEntityClass().getSimpleName() + " could not be added to DB. ", ex);
         } finally {
             if (session != null) {
                 session.close();
@@ -42,12 +39,14 @@ public abstract class AbstractDao<T> {
 
     public Optional<T> get(Long id) {
         try (Session session = factory.openSession()) {
-            return Optional.ofNullable(session.find(entityClass, id));
+            return Optional.ofNullable(session.find(getEntityClass(), id));
         } catch (Exception ex) {
             throw new DataProcessingException("Can't get "
-                    + entityClass.getSimpleName() + " from DB", ex);
+                    + getEntityClass().getSimpleName() + " from DB", ex);
         }
     }
+
+    protected abstract Class<T> getEntityClass();
 
 }
 

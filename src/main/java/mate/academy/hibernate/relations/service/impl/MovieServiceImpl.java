@@ -4,14 +4,11 @@ import mate.academy.hibernate.relations.dao.MovieDao;
 import mate.academy.hibernate.relations.exception.DataProcessingException;
 import mate.academy.hibernate.relations.model.Movie;
 import mate.academy.hibernate.relations.service.MovieService;
-import org.hibernate.SessionFactory;
 
 public class MovieServiceImpl implements MovieService {
-    private final SessionFactory sessionFactory;
     private MovieDao movieDao;
 
-    public MovieServiceImpl(SessionFactory sessionFactory, MovieDao movieDao) {
-        this.sessionFactory = sessionFactory;
+    public MovieServiceImpl(MovieDao movieDao) {
         this.movieDao = movieDao;
     }
 

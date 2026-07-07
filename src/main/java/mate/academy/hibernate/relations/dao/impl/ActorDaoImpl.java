@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 public class ActorDaoImpl extends AbstractDao<Actor> implements ActorDao {
     public ActorDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory, Actor.class);
+        super(sessionFactory);
     }
 
     @Override
@@ -18,5 +18,10 @@ public class ActorDaoImpl extends AbstractDao<Actor> implements ActorDao {
     @Override
     public Optional<Actor> get(Long id) {
         return super.get(id);
+    }
+
+    @Override
+    protected Class<Actor> getEntityClass() {
+        return Actor.class;
     }
 }

@@ -22,19 +22,19 @@ public class Main {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         Country usa = new Country("USA");
-        CountryService countryService = new CountryServiceImpl(sessionFactory,
+        CountryService countryService = new CountryServiceImpl(
                 new CountryDaoImpl(sessionFactory));
         countryService.add(usa);
 
         Actor vinDiesel = new Actor("Vin Diesel");
         vinDiesel.setCountry(usa);
-        ActorService actorService = new ActorServiceImpl(sessionFactory,
+        ActorService actorService = new ActorServiceImpl(
                 new ActorDaoImpl(sessionFactory));
         actorService.add(vinDiesel);
 
         Movie fastAndFurious = new Movie("Fast and Furious");
         fastAndFurious.setActors(List.of(vinDiesel));
-        MovieService movieService = new MovieServiceImpl(sessionFactory,
+        MovieService movieService = new MovieServiceImpl(
                 new MovieDaoImpl(sessionFactory));
         movieService.add(fastAndFurious);
         System.out.println(movieService.get(fastAndFurious.getId()));
