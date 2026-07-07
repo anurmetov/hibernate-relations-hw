@@ -4,11 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "actor")
+@Table(name = "actors")
 public class Actor implements Cloneable {
 
     @Id
@@ -17,7 +18,8 @@ public class Actor implements Cloneable {
 
     private String name;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "country_id")
     private Country country;
 
     public Actor() {
@@ -33,6 +35,10 @@ public class Actor implements Cloneable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
